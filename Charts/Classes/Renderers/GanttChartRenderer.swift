@@ -263,6 +263,12 @@ public class GanttChartRenderer: BarChartRenderer
         {
             let e = entries[j]
             
+            let ganttData = e.data as? GanttChartData
+            
+            if (ganttData?.title.characters.count == 0) {
+                continue
+            }
+            
             // calculate the x-position, depending on datasetcount
             let x = CGFloat(e.xIndex + e.xIndex * dataSetOffset) + CGFloat(index)
                 + groupSpace * CGFloat(e.xIndex) + groupSpaceHalf
@@ -287,7 +293,10 @@ public class GanttChartRenderer: BarChartRenderer
                     left *= phaseY
                 }
                 
-                barRect.origin.x = left
+                // only for Gantt Chart
+                let startPosition = ganttData!.startPosition as Float
+                
+                barRect.origin.x = CGFloat(startPosition)
                 barRect.size.width = right - left
                 barRect.origin.y = top
                 barRect.size.height = bottom - top
@@ -495,6 +504,14 @@ public class GanttChartRenderer: BarChartRenderer
                 {
                     for (var j = 0, count = Int(ceil(CGFloat(valuePoints.count) * _animator.phaseX)); j < count; j++)
                     {
+                        
+                        let ganttData = entries[j].data as? GanttChartData
+                        
+                        if (ganttData?.title.characters.count == 0) {
+                            continue
+                        }
+                        
+                        
                         if (!viewPortHandler.isInBoundsTop(valuePoints[j].y))
                         {
                             break

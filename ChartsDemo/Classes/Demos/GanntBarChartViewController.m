@@ -42,8 +42,7 @@
                      @{@"key": @"togglePinchZoom", @"label": @"Toggle PinchZoom"},
                      @{@"key": @"toggleAutoScaleMinMax", @"label": @"Toggle auto scale min/max"},
                      ];
-    
-    self.tasks = @[@"1 Trinitiy task delivery", @"2 Trinitiy task delivery", @"3 Trinitiy task delivery"];
+    self.tasks = @[@"3 Trinitiy task", @"2 Trinitiy task", @"1 Trinitiy task"];
     
     _chartView.delegate = self;
     
@@ -64,6 +63,18 @@
     xAxis.drawGridLinesEnabled = YES;
     xAxis.gridLineWidth = .3;
     
+//    [xAxis setFormattedTitle:^NSString * _Nonnull(NSInteger index) {
+//        
+//        //        NSLog(@"Index: %@", @(index));
+//        
+//        if (index > [months count] || index <= 0) {
+//            return @"";
+//        }
+//        
+//        return months[index];
+//    }];
+
+    
     ChartYAxis *leftAxis = _chartView.leftAxis;
     leftAxis.labelFont = [UIFont systemFontOfSize:10.f];
     leftAxis.drawAxisLineEnabled = YES;
@@ -77,7 +88,7 @@
 //    rightAxis.drawGridLinesEnabled = NO;
     
 //    [leftAxis setForceLabelsEnabled:YES];
-    [leftAxis setLabelCount:12 force:YES];
+    [leftAxis setLabelCount:[months count] force:YES];
     
     [leftAxis setFormattedTitle:^NSString * _Nonnull(NSInteger index) {
         
@@ -96,25 +107,46 @@
     _chartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
     _chartView.legend.xEntrySpace = 4.0;
     
-//    _sliderX.value = 11.0;
-//    _sliderY.value = 50.0;
-    
-//    [self slidersValueChanged:nil];
-    
     NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [months count]; i++)
+    // by amont of month as minimum
+    if ([self.tasks count] < [months count]) {
+        NSMutableArray *array = [NSMutableArray array];
+        
+        NSUInteger emptyNeeded = [months count] - [self.tasks count];
+        
+        for (int i = 0; i < [months count]; i++) {
+            if (i < emptyNeeded) {
+                [array addObject:@""];
+            } else {
+                [array addObject:self.tasks[i - emptyNeeded]];
+            }
+        }
+        
+        self.tasks = array;
+    }
+    
+    // add all tasks to values for X axis
+    for (int i = 0; i < [self.tasks count]; i++)
     {
-        [xVals addObject:months[i]];
+        [xVals addObject:self.tasks[i]];
     }
     
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [months count]; i++)
+    for (int i = 0; i < [self.tasks count]; i++)
     {
+        
+        GanttChartData *data = [GanttChartData new];
+        
+        data.title = self.tasks[i];
+        // TODO: calculate position according to month, from 0-11
+        data.startPosition = [@(i) floatValue];
+        
         double mult = (50 + 1);
         double val = (double) (arc4random_uniform(mult));
-        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:val xIndex:i data:months[i]]];
+        
+        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:val xIndex:i data:data]];
     }
     
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"DataSet"];
