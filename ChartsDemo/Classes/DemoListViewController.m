@@ -31,6 +31,8 @@
 #import "SinusBarChartViewController.h"
 #import "BubbleChartViewController.h"
 
+#import "GanntBarChartViewController.h"
+
 @interface DemoListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -46,6 +48,12 @@
     self.title = @"Charts Demonstration";
 
     self.itemDefs = @[
+                      
+                      @{
+                          @"title": @"Gantt Bar Chart",
+                          @"subtitle": @"A simple demonstration of the Gantt bar chart.",
+                          @"class": GanntBarChartViewController.class
+                          },
                       @{
                           @"title": @"Line Chart",
                           @"subtitle": @"A simple demonstration of the linechart.",
@@ -189,6 +197,20 @@
     [self.navigationController pushViewController:vc animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#warning ONLY for testing
+
+- (void)viewDidAppear:(BOOL)animated {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSDictionary *def = self.itemDefs[0];
+        
+        Class vcClass = def[@"class"];
+        UIViewController *vc = [[vcClass alloc] init];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+
+    });
 }
 
 @end

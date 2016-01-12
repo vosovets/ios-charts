@@ -132,6 +132,9 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     
     public override func drawRect(rect: CGRect)
     {
+        
+        print(__FUNCTION__)
+        
         super.drawRect(rect)
         
         if _data === nil
@@ -206,7 +209,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
         _xAxisRenderer?.renderGridLines(context: context)
         _leftYAxisRenderer?.renderGridLines(context: context)
         _rightYAxisRenderer?.renderGridLines(context: context)
-        
+
         renderer?.drawData(context: context)
         
         if (!_xAxis.isDrawLimitLinesBehindDataEnabled)
@@ -221,8 +224,8 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
         {
             _rightYAxisRenderer?.renderLimitLines(context: context)
         }
-
-        // if highlighting is enabled
+    
+//         if highlighting is enabled
         if (valuesToHighlight())
         {
             renderer?.drawHighlighted(context: context, indices: _indicesToHighlight)
@@ -230,13 +233,14 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
 
         // Removes clipping rectangle
         CGContextRestoreGState(context)
-        
+    
         renderer!.drawExtras(context: context)
         
         _xAxisRenderer.renderAxisLabels(context: context)
         _leftYAxisRenderer.renderAxisLabels(context: context)
+        
         _rightYAxisRenderer.renderAxisLabels(context: context)
-
+        
         renderer!.drawValues(context: context)
 
         _legendRenderer.renderLegend(context: context)

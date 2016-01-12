@@ -35,6 +35,8 @@ public class ChartYAxis: ChartAxisBase
         case Right
     }
     
+    public var formattedTitle:((index: Int) -> String)?
+    
     public var entries = [Double]()
     public var entryCount: Int { return entries.count; }
     
@@ -217,7 +219,9 @@ public class ChartYAxis: ChartAxisBase
             return ""
         }
         
-        return (valueFormatter ?? _defaultValueFormatter).stringFromNumber(entries[index])!
+        let value:String? = formattedTitle?(index: index)
+        
+        return (value ??  (valueFormatter ?? _defaultValueFormatter).stringFromNumber(entries[index]))!
     }
     
     /// - returns: true if this axis needs horizontal offset, false if no offset is needed.

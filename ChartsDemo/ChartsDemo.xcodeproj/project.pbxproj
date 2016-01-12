@@ -26,7 +26,7 @@
 		5B57BBB51A9B26AA0036A6CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B57BBB41A9B26AA0036A6CC /* main.m */; };
 		5B57BBB81A9B26AA0036A6CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B57BBB71A9B26AA0036A6CC /* AppDelegate.m */; };
 		5B57BBBB1A9B26AA0036A6CC /* DemoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B57BBBA1A9B26AA0036A6CC /* DemoListViewController.m */; };
-		5B6654D11BB0A36F00890030 /* MyCustomXValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6654D01BB0A36F00890030 /* MyCustomXValueFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		5B6654D11BB0A36F00890030 /* MyCustomXValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6654D01BB0A36F00890030 /* MyCustomXValueFormatter.m */; };
 		5B8EAF241AB3271B009697AA /* DemoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8EAF231AB3271B009697AA /* DemoListViewController.xib */; };
 		5B8EAF281AB32CF5009697AA /* DemoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8EAF261AB32CF5009697AA /* DemoBaseViewController.m */; };
 		5B8EAF301AB32E15009697AA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B8EAF2F1AB32E15009697AA /* Images.xcassets */; };
@@ -65,6 +65,8 @@
 		5BEAED3C1ABC199F0013F194 /* ColoredLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEAED3A1ABC199F0013F194 /* ColoredLineChartViewController.xib */; };
 		5BEAED401ABC1AC60013F194 /* SinusBarChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAED3E1ABC1AC60013F194 /* SinusBarChartViewController.m */; };
 		5BEAED411ABC1AC60013F194 /* SinusBarChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEAED3F1ABC1AC60013F194 /* SinusBarChartViewController.xib */; };
+		966FA0F91C3D1979000E4333 /* GanntBarChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FA0F71C3D1979000E4333 /* GanntBarChartViewController.m */; };
+		966FA0FA1C3D1979000E4333 /* GanntBarChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 966FA0F81C3D1979000E4333 /* GanntBarChartViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
 			remoteInfo = Charts;
+		};
+		966FA0FD1C3D197A000E4333 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B8EAF321AB32EA0009697AA /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
+			remoteInfo = "Charts-TV";
+		};
+		966FA0FF1C3D197A000E4333 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B8EAF321AB32EA0009697AA /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
+			remoteInfo = ChartsTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -181,6 +197,9 @@
 		5BEAED3D1ABC1AC60013F194 /* SinusBarChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinusBarChartViewController.h; sourceTree = "<group>"; };
 		5BEAED3E1ABC1AC60013F194 /* SinusBarChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinusBarChartViewController.m; sourceTree = "<group>"; };
 		5BEAED3F1ABC1AC60013F194 /* SinusBarChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinusBarChartViewController.xib; sourceTree = "<group>"; };
+		966FA0F61C3D1979000E4333 /* GanntBarChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GanntBarChartViewController.h; sourceTree = "<group>"; };
+		966FA0F71C3D1979000E4333 /* GanntBarChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GanntBarChartViewController.m; sourceTree = "<group>"; };
+		966FA0F81C3D1979000E4333 /* GanntBarChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GanntBarChartViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +299,8 @@
 			isa = PBXGroup;
 			children = (
 				5B8EAF371AB32EA1009697AA /* Charts.framework */,
+				966FA0FE1C3D197A000E4333 /* Charts.framework */,
+				966FA1001C3D197A000E4333 /* ChartsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -318,9 +339,6 @@
 				5BEAED2E1ABC18F00013F194 /* CubicLineChartViewController.h */,
 				5BEAED2F1ABC18F00013F194 /* CubicLineChartViewController.m */,
 				5BEAED301ABC18F00013F194 /* CubicLineChartViewController.xib */,
-				5BDEDC3E1ABB7F73007D3A60 /* HorizontalBarChartViewController.h */,
-				5BDEDC3F1ABB7F73007D3A60 /* HorizontalBarChartViewController.m */,
-				5BDEDC401ABB7F73007D3A60 /* HorizontalBarChartViewController.xib */,
 				5BD8F0711AB89CE500566E05 /* LineChart1ViewController.h */,
 				5BD8F0721AB89CE500566E05 /* LineChart1ViewController.m */,
 				5BD8F0731AB89CE500566E05 /* LineChart1ViewController.xib */,
@@ -351,6 +369,12 @@
 				5BEAED181ABBFB340013F194 /* StackedBarChartViewController.h */,
 				5BEAED191ABBFB340013F194 /* StackedBarChartViewController.m */,
 				5BEAED1A1ABBFB340013F194 /* StackedBarChartViewController.xib */,
+				5BDEDC3E1ABB7F73007D3A60 /* HorizontalBarChartViewController.h */,
+				5BDEDC3F1ABB7F73007D3A60 /* HorizontalBarChartViewController.m */,
+				5BDEDC401ABB7F73007D3A60 /* HorizontalBarChartViewController.xib */,
+				966FA0F61C3D1979000E4333 /* GanntBarChartViewController.h */,
+				966FA0F71C3D1979000E4333 /* GanntBarChartViewController.m */,
+				966FA0F81C3D1979000E4333 /* GanntBarChartViewController.xib */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -425,6 +449,20 @@
 			remoteRef = 5B8EAF361AB32EA1009697AA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		966FA0FE1C3D197A000E4333 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 966FA0FD1C3D197A000E4333 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		966FA1001C3D197A000E4333 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 966FA0FF1C3D197A000E4333 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -450,6 +488,7 @@
 				5BEAED321ABC18F00013F194 /* CubicLineChartViewController.xib in Resources */,
 				5BEAED281ABC0BE20013F194 /* MultipleLinesChartViewController.xib in Resources */,
 				5B4316381AB8D8B70009FCAA /* Default@2x.png in Resources */,
+				966FA0FA1C3D1979000E4333 /* GanntBarChartViewController.xib in Resources */,
 				5B9624421B38608C007763E2 /* NegativeStackedBarChartViewController.xib in Resources */,
 				5B0CC7861ABB875400665592 /* PieChartViewController.xib in Resources */,
 				5BEAED1C1ABBFB340013F194 /* ScatterChartViewController.xib in Resources */,
@@ -498,6 +537,7 @@
 				5BEAED361ABC192F0013F194 /* RadarChartViewController.m in Sources */,
 				5B6654D11BB0A36F00890030 /* MyCustomXValueFormatter.m in Sources */,
 				5B9624411B38608C007763E2 /* NegativeStackedBarChartViewController.m in Sources */,
+				966FA0F91C3D1979000E4333 /* GanntBarChartViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
