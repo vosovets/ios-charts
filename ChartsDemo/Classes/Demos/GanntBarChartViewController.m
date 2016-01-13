@@ -43,6 +43,7 @@
                      @{@"key": @"toggleAutoScaleMinMax", @"label": @"Toggle auto scale min/max"},
                      ];
     self.tasks = @[@"3 Trinitiy task", @"2 Trinitiy task", @"1 Trinitiy task"];
+//      self.tasks = @[@"1 Trinitiy task"];
     
     _chartView.delegate = self;
     
@@ -88,6 +89,7 @@
 //    rightAxis.drawGridLinesEnabled = NO;
     
 //    [leftAxis setForceLabelsEnabled:YES];
+    // !!!
     [leftAxis setLabelCount:[months count] force:YES];
     
     [leftAxis setFormattedTitle:^NSString * _Nonnull(NSInteger index) {
@@ -141,7 +143,13 @@
         
         data.title = self.tasks[i];
         // TODO: calculate position according to month, from 0-11
-        data.startPosition = [@(i) floatValue];
+        
+        data.startPosition = [@(1) floatValue];
+        data.endPosition = [@(5) floatValue];
+        
+        if (data.title.length > 0) {
+            NSLog(@"Gannt: %@ up to %@ ", @(data.startPosition), @(data.endPosition));
+        }
         
         double mult = (50 + 1);
         double val = (double) (arc4random_uniform(mult));

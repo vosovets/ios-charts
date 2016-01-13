@@ -48,6 +48,12 @@ public class GanttChartRenderer: BarChartRenderer
         {
             let e = entries[j]
             
+            let ganttData = e.data as? GanttChartData
+            
+            if (ganttData?.title.characters.count == 0) {
+                continue
+            }
+            
             // calculate the x-position, depending on datasetcount
             let x = CGFloat(e.xIndex + e.xIndex * dataSetOffset) + CGFloat(0)
                 + groupSpace * CGFloat(e.xIndex) + groupSpaceHalf
@@ -72,13 +78,23 @@ public class GanttChartRenderer: BarChartRenderer
                     left *= phaseY
                 }
                 
-                barRect.origin.x = left
-                barRect.size.width = right - left
+                // only for Gantt Chart in %
+                var startPosition = ganttData!.startPosition as Float
+                var endPosition = ganttData!.endPosition as Float
+                
+                var point : CGPoint = CGPoint(x: viewPortHandler.chartWidth, y: viewPortHandler.chartHeight)
+                
+                trans.pixelToValue(&point)
+                let maxPosition = Float(point.x)
+                
+                startPosition = maxPosition * startPosition / 12
+                endPosition = maxPosition * endPosition / 12
+                
+                barRect.origin.x = CGFloat(startPosition)
+                barRect.size.width = CGFloat(endPosition) - CGFloat(startPosition)
+                
                 barRect.origin.y = top
                 barRect.size.height = bottom - top
-                
-//                print("\(barRect)" + " " + "\(e)")
-//                print("\(e)" + " <> " + "\(dataEntry)")
                 
                 trans.rectValueToPixel(&barRect)
                 
@@ -232,11 +248,6 @@ public class GanttChartRenderer: BarChartRenderer
     
     internal override func drawDataSet(context context: CGContext, dataSet: BarChartDataSet, index: Int)
     {
-        
-        print("1 DRAW data")
-        
-//        return
-        
         guard let dataProvider = dataProvider, barData = dataProvider.barData else { return }
         
         CGContextSaveGState(context)
@@ -293,11 +304,21 @@ public class GanttChartRenderer: BarChartRenderer
                     left *= phaseY
                 }
                 
-                // only for Gantt Chart
-                let startPosition = ganttData!.startPosition as Float
+                // only for Gantt Chart in %
+                var startPosition = ganttData!.startPosition as Float
+                var endPosition = ganttData!.endPosition as Float
+                
+                var point : CGPoint = CGPoint(x: viewPortHandler.chartWidth, y: viewPortHandler.chartHeight)
+                
+                trans.pixelToValue(&point)
+                let maxPosition = Float(point.x)
+                
+                startPosition = (maxPosition * startPosition / 12) - 1.1
+                endPosition = maxPosition * endPosition / 12 - 1
                 
                 barRect.origin.x = CGFloat(startPosition)
-                barRect.size.width = right - left
+                barRect.size.width = CGFloat(endPosition) - CGFloat(startPosition)
+
                 barRect.origin.y = top
                 barRect.size.height = bottom - top
                 
@@ -528,7 +549,21 @@ public class GanttChartRenderer: BarChartRenderer
                         }
                         
                         let val = entries[j].value
-                        let valueText = formatter!.stringFromNumber(val)!
+                        
+                        
+                        
+                        // only for Gantt Chart
+                        let startPosition = ganttData!.startPosition as Float
+                        let endPosition = ganttData!.endPosition as Float
+                        
+                        let months = endPosition - startPosition
+                        
+                        var valueText = formatter!.stringFromNumber(val)!
+                        if (months > 1) {
+                            valueText = String(format: "%@ Months", NSNumber(float: months))
+                        } else {
+                            valueText = String(format: "1 Month")
+                        }
                         
                         // calculate the correct offset depending on the draw position of the value
                         let valueTextWidth = valueText.sizeWithAttributes([NSFontAttributeName: valueFont]).width
@@ -558,11 +593,11 @@ public class GanttChartRenderer: BarChartRenderer
                             let x = valuePoints[j].x
                             let y = valuePoints[j].y
                             
-                            print("J: \(j): \(x)" + "/" + "\(y)")
+//                            print("J: \(j): \(x)" + "/" + "\(y)")
                             
                             let entryRect = rectForEntry(context: context, dataSet: dataSet, dataEntry: entries[j], valueIndex: j)
                             
-                            print("EntryRect: \(entryRect)")
+//                            print("EntryRect: \(entryRect)")
                             
                             let xPos: CGFloat = (val >= 0.0 ? posOffset : negOffset) + entryRect.origin.x + (entryRect.size.width - valueTextWidth) / 2
 //                            let xPos: CGFloat = valuePoints[j].x
@@ -577,18 +612,18 @@ public class GanttChartRenderer: BarChartRenderer
                                 align: .Center,
                                 color: valueTextColor)
                             
-                            print("X: \(xPos)) Y: \(yPos)")
-                            print("")
+//                            print("X: \(xPos)) Y: \(yPos)")
+//                            print("")
                         } else {
                             
                             let x = valuePoints[j].x
                             let y = valuePoints[j].y
                             
-                            print("J: \(j): \(x)" + "/" + "\(y)")
+//                            print("J: \(j): \(x)" + "/" + "\(y)")
                             
                             let entryRect = rectForEntry(context: context, dataSet: dataSet, dataEntry: entries[j], valueIndex: j)
                             
-                            print("EntryRect: \(entryRect)")
+//                            print("EntryRect: \(entryRect)")
                             
                             let xPos: CGFloat = valuePoints[j].x + (val >= 0.0 ? posOffset : negOffset)
                             let yPos: CGFloat = valuePoints[j].y + yOffset
@@ -602,8 +637,8 @@ public class GanttChartRenderer: BarChartRenderer
                                 align: .Center,
                                 color: valueTextColor)
                             
-                            print("X: \(xPos)) Y: \(yPos)")
-                            print("")
+//                            print("X: \(xPos)) Y: \(yPos)")
+//                            print("")
                         }
                         
                     }
